@@ -9,10 +9,12 @@ public class CapsulePhysics : MonoBehaviour
     public Vector3 horizontalVelocity => Vector3.ProjectOnPlane(RB.velocity, RB.transform.up);
     public Vector3 verticalVelocity => Vector3.Project(RB.velocity, RB.transform.up);
     public float verticalSpeed => Vector3.Dot(RB.velocity, RB.transform.up);
+    private AudioSource playerAudio;
+    public AudioClip playerJump;
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -31,6 +33,7 @@ public class CapsulePhysics : MonoBehaviour
 
         RB.velocity = (Vector3.up * jumpForce)
             + horizontalVelocity;
+        playerAudio.PlayOneShot(playerJump, 1.0f);
     }
 
     // Fixed Updates
